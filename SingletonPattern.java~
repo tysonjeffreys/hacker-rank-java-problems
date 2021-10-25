@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.lang.reflect.*;
+
+
+class SingletonPattern {
+
+
+class Singleton {
+    
+    public String str;
+    
+    private Singleton(){
+    
+    }
+
+    static int oneInstance = 0;
+    public static Singleton getSingleInstance() {
+	Singleton oneSingleton = null;
+	while(oneInstance == 0){
+	    oneSingleton = new Singleton();
+	    oneInstance++;
+	}
+	return oneSingleton;    
+    }
+    
+}
+
+public static void main(String[] args) {
+
+    Singleton.getSingleInstance();
+}
+}

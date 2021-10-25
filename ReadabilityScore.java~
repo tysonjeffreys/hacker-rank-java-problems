@@ -1,0 +1,13 @@
+package readability;
+
+public class Main {
+    public static void main(String[] args) {
+
+	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	line = reader.readLine;
+	System.out.println(line);
+
+	//       System.out.print("Hello world!");
+        
+    }
+}

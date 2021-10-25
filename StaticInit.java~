@@ -1,0 +1,28 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class StaticInit {
+
+    static {
+	int B, H;
+	BuffereredReader br = new BufferedReader(new InputStreamReader(System.in));
+	try {
+	    H = Interger.parseInt(br.readLine());
+	    B = Interger.parseInt(br.readLine());
+	}catch (IOException ioe){
+	    System.out.println(ioe);
+	}
+    }
+
+    public static void main(String[] args){
+	//if(flag){
+	int area=B*H;
+	System.out.print(area);
+	//}
+    
+}//end of main
+
+}//end of class

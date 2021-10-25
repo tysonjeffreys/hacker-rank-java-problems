@@ -1,0 +1,721 @@
+import java.util.*;
+
+public class ArrayPartTwo {
+
+    public static boolean canWin(int leap, int[] game) {
+    
+	int[] game1 = game;
+	int leap1 = leap;
+	int i = 0;
+	int n = game1.length - 1;
+	//int n = 2;
+	boolean go = true;
+	boolean win = false;
+	int k = 0;
+	//while(win == false)
+	while(go)
+	    {
+		System.out.println("beginning i: " + i);
+		k++;
+		System.out.println("loop: " + k);
+		if(i >= n-1){System.out.println("First If: i = " + i);win = true; go = false;}
+	    
+		else if(i + leap >= n){win = true; go = false;System.out.println("Second If: i = " + i);}
+
+//this statement test if the move is 'blocked' ie moving one space forward or leap forward is not possible 
+		
+		else if(game1[i + 1] == 1 && game1[i + leap] == 1 && game1[i - 1] == 1){System.out.println("Third If: i = " + i);win = false; go = false;}                    s effort is wasted.
+                    3|
+                    Add CommentParentPermalink
+                        appspopo7 4 months ago
+
+																						  ank you so much for this. I was into this issue and tired to tinker around to check if its possible https://www.ucbrowser.vip/ but couldnt get it done. Now that i have seen the way you did it, thanks guys with regards
+                        -2|
+                        Add CommentParentPermalink
+                            appspopo7 4 months ago
+
+                            Thanks for sharing.I fo https://shareit.onl/ und a lot of interesting information here. A really good post, very thankful and hopeful that you will write many more posts like this one.
+                            -2|
+                            Add CommentParentPermalink
+            zoedis 9 months ago
+
+				because you are backtracking, you need to see where you've been before and then "backtrack", or reset back to that point if you've failed to complete the game. At least I used backtracking, I'm sure there's a more nuanced way to do this but I just went with what I knew.
+            0|
+            Add CommentParentPermalink
+        alejandro33 4 years ago
+
+        awesome idea mark "i" as visited
+        1|
+        Add CommentParentPermalink
+        [deleted] 4 years ago
+
+        could you please post full code. I am unbale to solve this.
+        -6|
+        Add CommentParentPermalink
+        vikas843 4 years ago
+        [deleted]
+        -1|
+        Add CommentParentPermalink
+        justin0311 4 years ago
+
+																																	    Can someone explain why we need isSolvable(m, arr, i - 1) in the return statement? Can it be just
+
+																																	    return isSolvble(m, arr, i+1) || isSolvble(m, arr, i+m)?
+        1|
+        Add CommentParentPermalink
+            AbdallahDay 4 years ago
+
+																																	    Consider the following situation:
+
+																																	    arr = { 0 1 1 0 0 1 0 0 1 }; m = 4
+
+																																					     You start off in position 0:
+
+		{ 0 1 1 0 0 1 0 0 1 }
+
+		You can't walk forward, but you can jump forward by m positions: i + m = 0 + 4 = 4, now you're at position 4:
+
+		    { 0 1 1 0 0 1 0 0 1 }
+
+		So far, so good.
+
+		    Now, once again, you can't walk forward, but this time you can't jump forward either because i + m = 4 + 4 = 8; position 8 contains a 1, not a legal move, but since you're allowed to walk backward to i - 1 = 3 which contains a 0, it's a legal move so you end up in position 3:
+
+		{ 0 1 1 0 0 1 0 0 1 }
+
+		Now you can jump from here because i + m = 3 + 4 = 7; position 7 contains a 0, legal move, you end up here:
+
+		{ 0 1 1 0 0 1 0 0 1 }
+
+            Then from here you can jump 4 position forward and end up at i = 11 which is beyond the array length and you win!
+
+            This is just one example of how walking backward would be a useful move.
+
+            Hope that helped!
+            103|
+            Add CommentParentPermalink
+                AnnCoder 4 years ago
+
+                @AbdallahDay - you rock! Thanks!
+                1|
+                Add CommentParentPermalink
+                    harithahari29597 3 years ago
+                    [deleted]
+                    0|
+                    Add CommentParentPermalink
+                aniket24 3 years ago
+
+                Thanks a lot!!
+                0|
+                Add CommentParentPermalink
+                a_sicca001 3 years ago
+
+                Thanks for explaining the process
+                0|
+                Add CommentParentPermalink
+                Ghostman19 3 years ago
+
+                Thanks It was so helpfull for me!!!!!!
+                1|
+                Add CommentParentPermalink
+                raj_thakur 3 years ago
+
+						    @AbdallahDay - Thanks for the explanation :)
+                0|
+                Add CommentParentPermalink
+                karthickgm27 3 years ago
+
+                I used the same logic. But the test cases are getting timed out. One of them involves testing 5000 diffeent cases and I ran one "FOR" loop with i=0 to 4999 having to initialize a new array 1D for every case. I don't know whether is there any algorithm to beat that case. Taking more time to get executed.
+                2|
+                Add CommentParentPermalink
+                noobieatwork 3 years ago
+
+                thank you so much !
+                -1|
+                Add CommentParentPermalink
+                Codolic127 3 years ago
+
+                you rock thanks buddy
+                0|
+                Add CommentParentPermalink
+                KodeMastar 3 years ago
+
+                Consider this array:
+
+                arr={0 1 1 0 0 0 1 0 1 1 1 } ,m=4
+
+                Step 1: It jumps to i=i+m
+
+                arr={1 1 1 0 0 0 1 0 1 1 1 }
+
+                Step 2: From here, it can either go i+1 or i-1. But if it goes to i+1, it can't return back and will term as false. Only if it goes to i-1 will there be a win.
+
+																		   So, how is it prioritised of whether to go ahead or back?
+
+																		   The modified array if it goes i+1:
+
+		    arr={1 1 1 0 1 0 1 0 1 1 1 }
+
+                1|
+                Add CommentParentPermalink
+                mohammad_haisam 2 years ago
+
+                level hogya
+                0|
+                Add CommentParentPermalink
+                Shakil335 2 years ago
+
+                That explanation clears everything.Thanks.
+                0|
+                Add CommentParentPermalink
+                gowriaddepalli 2 years ago
+
+		    Would this not be an issue that once we mark it visited and then we try to retrace back, with isSolvable(m, arr, i - 1), as if i-1 is visited, it will be marked as 1, changing the base array.
+                0|
+                Add CommentParentPermalink
+                uyennn1025 1 year ago
+
+																			This helped so much, thank you!
+                0|
+                Add CommentParentPermalink
+                yashprchoube 12 months ago
+
+																			isSolvable(m, arr, i - 1) this condition is not valid for the input 0, initially, then isSolvable(m, arr, i - 1) i-1=0-1 how it will work
+                0|
+                Add CommentParentPermalink
+                filip_barac775 6 months ago
+
+                I should've known they wouldn't mention backward movement for no reason. I thought it was useless.
+                0|
+                Add CommentParentPermalink
+        Prudhv16 4 years ago
+
+										     Thank you very much :), I loved your solution.
+        0|
+        Add CommentParentPermalink
+        crick_ 4 years ago
+
+        Can someone please tell me that how does the function know what to return out of the three that is i+1,i-1 and i+m supposing two of them return true and one returns false??
+        0|
+        Add CommentParentPermalink
+            Lungenyi 4 years ago
+
+	The function is called with all the 3 options (i+ago
+
+            Same doubt.
+            0|
+            Add CommentParentPermalink
+        mars885 4 years ago
+
+						       Thanks for sharing, dude.
+        0|
+        Add CommentParentPermalink
+        Lungenyi 4 years ago
+
+        Thank you for the most lucid solution.
+        0|
+        Add CommentParentPermalink
+        yulyan46 4 years ago
+
+        nice solution indeed
+        0|
+        Add CommentParentPermalink
+        Lungenyi 4 years ago
+
+						       I was so impressed by the beauty and simplicity of this solution that I had to research it further. I found this brief article: "Recursion: Solving a Maze" for moving in 4 directions with backtracking (North, South, East, West). Details at https://www.cs.bu.edu/teaching/alg/maze/
+        6|
+        Add CommentParentPermalink
+            anonymousGod 4 years ago
+
+            Thank you for providing that link. It explains how to solve such problems. I wrote this long code which worked for few cases but got me stac    Add CommentParentPermalink
+        sj_ali 4 years ago
+
+						       5 test cases failed and 5 passed, no idea why, any idea ? please help or guide! int pos=0; try{ for(i=0; i arr.length - 1 || pos>n-1) System.out.println("YES"); else System.out.println("NO"); break; }
+
+						       }}catch(Exception e){
+    System.out.println("YES");
+}
+
+        0|
+        Add CommentParentPermalink
+            njavig 1 year ago
+
+            I think it's because of the order, of checking index.
+            I did as below as it was ok.
+
+                if (i < 0) return fince the back step did not seem useful. It is only when you have a hole in the array where you can jump only by shifting left that the problem becomes really interesting.
+        1|
+        Add CommentParentPermalink
+        somendra1307 4 years ago
+
+        what is the i here?
+        0|
+        Add CommentParentPermalink
+            jatinbhatia2055 3 years ago
+
+            that's the position
+            0|
+            Add CommentParentPermalink
+        thebick 4 years ago
+        [deleted]
+        -1|
+        Add CommentParentPermalink
+        parnika182 4 years ago
+
+	    Thats a great solution, but could you please explain how you came up with the approach, I am new to programming. Sorry if its a stupid question. Thanks in advance :)
+        0|
+        Add CommentParentPermalink
+            thebick 4 years ago
+
+            It is depth-first search, marking the nodes that have been visited.
+            1|
+            Adks
+                0|
+                Add CommentParentPermalink
+            anonymousGod 4 years ago
+
+																						     This might be helpful. https://www.cs.bu.edu/teaching/alg/maze/ originally posted by Lungenyi.
+            2|
+            Add CommentParentPermalink
+                parnika182 4 years ago
+
+                Thanks
+                0|
+                Add CommentParentPermalink
+        dgeorgy 4 years ago
+
+        I don't get this solution. I see that i goes 0 > 1 > 2 > 0 > 4 > -1 > 3
+
+        How does this work? What is the flow of the recursive method calls?
+        0|
+        Add CommentParentPermalink
+            Peter_W 4 years ago
+
+            The magic is that the return sta false, then that will generate (up to) three new tests.
+
+            Potentially that makes a crazy tree. But by being clever enounishanksingla 3 years ago
+
+        Hi Kaisean, Thank you for sharing the nice, easy and elegant solution. I am getting runtime error in test case #3 with your solution. Did you face the same ?
+        1|
+        Add CommentParentPermalink
+        pandeyakshive97 3 years ago
+
+        awesome man !
+        0|
+        Add CommentParentPermalink
+        DFentz 3 years ago
+
+        Afterr, i + m)
+
+        some conditions may not be fit
+        0|
+        Add CommentParentPermalink
+        davipc 3 years ago
+
+        I can't believe it, I went through the same thing! One needs to remember leap may be 0... Thanks for the heads up, with that in mind now my solution works.
+        0|
+        Add CommentParentPermalink
+        quang220360 3 years ago
+
+        ecellent
+        0|
+        Add CommentParentPermalink
+        MarkWoodard2227 3 years ago
+
+        good use of recursion!
+        0|
+        Add CommentParentPermalink
+        azeez1846 3 years ago
+
+        Its amazing Kaisean
+		the given array to get the next zero for further traversing in the array to reach the end).
+
+        m = leap as given in the question explanation.
+
+        n = length of the array as in java.
+        1|
+        Add CommentParentPermalink
+        bridge139 2 years ago
+
+        you must not add new function.....
+        0|
+        Add CommentParentPermalink
+        bennattj 2 years ago
+
+													       I can beat that. My initial solution was wrong, but then I realized 1) I missed what you missed (well basically realized that leap could be 0) and 2) I needed to add another check in my algorithm (I used an iterative solution rather than recursive). Alas, still failed all tests.
+
+														   Finally, after about 30 minutes of trying to figure out what I    0|
+        Add CommentParentPermalink
+        siddhartha_ghrce 2 years ago
+
+        amazing solution!!
+        0|
+        Add CommentParentPermalink
+        yanshug142 2 years ago
+
+        Such a complex problem and step arr[i]=1 its amazing analysisermalink
+        s15170030561 2 years ago
+
+        i did not understand any thing..............r   Add CommentParentPermalink
+        vinayakshukla201 1 year ago
+        [deleted]
+        0|
+        Add CommentParentPermalink
+        skorukonda72 12 months ago
+
+        where is int i parameter mentioned in the question?
+        0|
+        Add CommentParentPermalink
+            njavig 12 months ago
+
+            i is position. you could plug in 0 at the biginning and it will be changing throuht the recursive calls.
+            0|
+            Add CommentParentPermalink
+                skorukonda72 12 months ago
+
+														   understood,
+                0|
+                Add CommentParentPermalink
+        Anshulcodes 10 months ago
+
+        It's beautiful.
+        0|
+        Add CommentParentPermalink
+        hydrargum 9 months ago
+
+        Nice!
+
+        Runtime optimization (less runtime steps) is available. The evaluation of ret + 1) || isSolvable(m, arr, i - 1);
+
+        0|
+        Add CommentParentPermalink
+        rushika_bhattad2 9 months ago
+
+        Could you please explain - why arr[i]=1?;
+        -1|
+        Add CommentParentPermalink
+            broch 9 months ago
+
+            It has already been explained if you scroll up
+            0|
+            Add CommentParentPermalink
+            broch 9 months ago
+
+            But I suggest you read abgain.
+        0|
+        Add CommentParent         
+        game[i] = 1; // marks as visited
+
+        // Recursive Cases
+        return isSolvable(leap, game, i + leap) || 
+               isSolvable(leap, game, i + 1) || 
+               isSolvable(leap, game, i - 1);
+    }
+
+    Let me know if you have any questions.
+    36|
+    Add CommentPermalink
+        ra_pri 3 years ago
+
+        çould you please tell the flow of this recursion? with values
+        -1|
+        Add CommentParentPermalink
+            RodneyShag 3 years ago
+
+            Here's a test case from the problem:
+
+            6 5
+            0 0 0 1 1 1
+
+              8|
+            Add CommentParentPermalink
+                rsamrat073 3 years ago
+
+														   Hi, I am facing problem while soving it .Can you provide the generilized solution or algo for it.
+
+																																	https://github.com/rsamrat073/HackerRank/blob/master/ArrayHopping
+                -2|
+                Add CommentParentPermalink
+                    RodneyShag 3 years ago
+
+                    I see your solution, but which question is that? If it's in any of the following tracks:
+                        10 Days of Statistics
+                        30 Days of Code
+                        Algorithms
+                        Cracking the Coding Interview
+             0|
+                    Add CommentParentPermalink
+                        rsamrat073 3 years ago
+
+                        Same problem which we all are solving.I need suggestion in my code
+                        -3|
+                        Add CommentParentPermalink
+                donzarrillo 2 years ago
+
+                Great explanation, thanks.
+                1|
+                Add CommentParentPermalink
+                TurboPascal 2 years ago
+
+                Thanks. But whguess.
+            0|
+            Add CommentParentPermalink
+                hari7813 3 years ago
+
+                hello rshaghoulian............. your approach is efficent and understandable for others......... u r doing a great job for newcommers. thanks a lot for pretty solution
+                3|
+                Add CommentParentPermalink
+                    RodneyShag 3 years ago
+
+            m? If so, I have seen this as 3 different Hackertion. Let n be # of elements in our array. The time complexity is O(n) since we visit each element in the array, m, i - 1); Is behaving
+        0|
+        Add CommentParentPermalink
+            RodneyShag 3 years ago
+
+            Hi. At each spot in the array, we have 3 optio   1|
+                    Add CommentParentPermalink
+                palashrawat7 1 year ago
+
+                Could you please explain why the recursive function will perform all these 3 steps. It should perform just 1 because others are in "OR". So it should be either to one position forward, or direct to the (index+leap) position or 1 step backword.
+
+                Could you pleae explain the working of that return statement.
+                0|
+                Add CommentParentPermalink
+        BunnyGoyal3889 3 years ago
+
+        isSolvable(array, m, i - 1)mmentParentPermalink
+        Ajay_Ravi 3 years ago
+        [deleted]
+        0|
+        Add CommentParentPermalink
+        ashishsinghchau1 3 years ago
+
+        My Code does not working out well.So, What should I do right now.Please tell me because I am still struggling to solve this programming question, Since 1 hours.
+        0|
+        Add CommentParentPermalink
+            RodneyShag 3 years ago
+
+            Hi. As a firstmentParentPermalink
+            RodneyShag 3 years ago
+
+            Hi. The question states "It is guaranteed that the value of game[0] is always 0", so your test case is not valid.
+
+            HackerRank solutions.
+            0|
+            Add CommentParentPermalink
+        Naxor 3 years ago
+
+        _/_
+        0|
+        Add CommentParentPermalink
+                   Scanner scan = new Scanner(System.in);
+                int q = scan.nextInt();
+                while (q-- > 0) {
+                    int n = scan.nextInt();
+                    int leap = scan.nextInt();
+                    
+                    int[] game = new int[n+leap];
+                    for (int i = 0; i < n; i++) {
+                        game[i] = scan.nextInt();
+                    }
+
+                    Syst             0|
+                Add CommentParentPermalink
+                Vijay_Ravi 3 years ago
+
+                I posted it here because I would like to get the answer from you rshaghouAdd CommentParentPermalink
+                            ibexxx 3 years ago
+
+                            Your code fails on the following test case:
+
+                            1
+                            18 4
+                            0 0 0 1 0 1 0 1 0 1 0 1 0 1 0 1 1 1
+
+                            1|
+               avi 3 years ago
+                                        [deleted]
+                                        1|
+                        0|
+                                        Add CommentParentPermalink
+                                            ibexxx 3 years ago
+
+                                            Now your code h, use a stack. Pop the elements out of the stack only after verifying game[i+1],game[i-1] and game[i+leap] has a 0 or not.
+                                        0|
+                                        Add CommentParentPermalink
+            bennattj 2 years ago
+
+            The problem is that you greedily always go forward as much as possible if you can and this is incorrect. Just because you can leap doesn't mean you should. Lets take the following scenarn.
+
+		    To fix your code, you need to do two things: 1) you need to have a way to try and go forward (and leap from there) and 2) you need to have a way to try and go backwards (and leap from there).
+            6|
+																						if(i<game.length-1 &&i+leap<game.length ){
+																						    while(game[i]==0 &&i>0 ){
+																							i--;
+																						    }
+																						    i++;
+
+																						}
+
+}else if(i+1<game.length&&game[i+1]==0){
+     i=i+1;
+
+ }else if(i+1<game.length&&game[i+1]==1){
+     return false;
+ }else{
+     return false;
+ }
+
+
+
+}return false;
+}
+public static void main(String[] args) {
+                Scanner mmentParentPermalink
+            RodneyShag 3 years ago
+
+            Is it failing? Or is it timing out? It's important to know which one ismbol and method anWin cannot applied to the given type.....? what is the problem i have no idea
+        0|
+        Add CommentParentPermalink
+            RodneyShag 3 years ago
+
+            Try the full solution available at HackerRank solutions.
+            0|
+            Add CommentParentPermalink
+        andadeacu 2 years ago
+
+        How can call this function in the main function?
+        0|
+        Add CommentParentPermalink
+            RodneyShag 2 years ago
+
+         0|
+        Add CommentParentPermalink
+            RodneyShag 1 year ago
+
+            Itis depth-first-search. Our recursive calls in the solution are DFS. I recommend reading more about depth-first-search on Google.
+
+            HackerRank solutions.
+            0|
+            Add CommentParentPermalink
+        alforkan 9 months ago
+
+        Hi bro..! I have solved this problem following your solution,s.
+           }
+                         int maxi=-100000;
+                         for(int i=0;i<6;i++){
+                             for(int j=0;j<6;j++){
+                                 if(i<=3 && j<=3){
+                                     int sum=arr[i][j]+arr[i][j+1]+arr[i][j+2]+(arr[i+1][j+1])+arr[i+2][j]+arr[i+2][j+1]+arr[i+2][j+2];
+                                     if(sum>maxi) maxi=sum;
+                                 }
+                             }
+                         }
+                         System.out.println(maxi);
+               if(i>=game.length)
+                                   return true;
+
+                        if(visited[i]==0)
+                        {
+                            visited[i]=1;
+                            if(game[i]==0)
+          game = new int[n]; for (int i = 0; i < n; i++) { game[i] = scan.nextInt(); }
+
+                            System.out.println( (canWin(game,leap,0)) ? "YES"  0|
+                                Add Commegs) {
+        Scanner scan = new Scanner(System.in);
+        int q = scan.nextInt();
+        while (q-- > 0) {
+            int n = scan.nextInt();
+            int leap = scan.nextInt();
+            visited=new int[n];
+            int[] game = new int[n];
+            for (int i = 0; i < n; i++) {
+                game[i] = scan.nextInt();
+            }
+
+            System.out.println( (canWin(game,leap,0)) ? "YES" : "NO" );
+        }
+        scan.close();
+    }
+
+    }
+          ritesh717 2 years ago
+
+        No comments
+        0|
+        Add CommentParentPermalink
+        cloudcityinvest1 2 years ago
+
+        can you do it without changing the method signature? static boolean canWin(int[] game,int leap)
+    return false;
+        }
+
+        1|
+        Add CommentParentPermalink
+            appspopo7 4 months ago
+
+            hank you so much for this. I was into this issue and tired to tinker aro und to check if its https://kodi.software/download/ possible but couldnt get it done. Now  = game.length;
+
+            Stack<Integer> potentialIndexes = new Stack<>();
+            potentialIndexes.push(0);
+
+            while (!potentialIndexes.isEmpty()) {
+                int i = potentialIndexes.pop();
+
+                if (i >= n) return true;
+
+                if (i < 0 || game[i] == 1) continue;
+
+                game[i] = 1;
+
+                potentialIndexes.push(i+1);
+                potentialIndexes.push(i-1);BFS            0|
+                Add CommentParentPermalink
+        N
+		
+		else if(game[i + leap] == 0){i = i + leap;System.out.println("Fourth If: " + i);}
+		
+		else if(game1[i + leap] == 0 || i+leap >= n ){i = i + leap; System.out.println("Fifth If: i = " + i);}
+
+		else if(game1[i + 1] == 0){i++;System.out.println("Sixth If: i = " + i);}
+		
+		System.out.println("i = " + i);
+
+		//else win = true; go = false;
+		
+		
+
+	      }
+
+
+
+
+	return win;
+    
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        //System.out.println("enter query");
+	//int q = scan.nextInt();
+	int q = 1;
+	while (q-- > 0) {
+	    //System.out.println("enter n");
+	    //int n = scan.nextInt();
+	    int n = 6;
+	    //System.out.println("enter leap");
+            //int leap = scan.nextInt();
+            int leap = 3;
+            //int[] game = new int[n];
+            /*for (int i = 0; i < n; i++) {
+                game[i] = scan.nextInt();
+		
+		}*/
+	    int[] game ={0,0,1,1,1,0};
+
+            System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+        }
+        scan.close();
+    }
+}
